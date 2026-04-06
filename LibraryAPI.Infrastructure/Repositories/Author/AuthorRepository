@@ -1,0 +1,31 @@
+namespace LibraryAPI.Infrastructure.Repositories;
+
+public class AuthorRepository : IAuthorRepository
+{
+    private readonly IMongoCollection<Author> _authors;
+
+    public async Task<IEnumerable<Author>> GetAuthors()
+    {
+        return await _authors.Find(author => true).ToListAsync();
+    }
+
+    public async Task<Author> GetAuthorById(string id)
+    {
+        return await _authors.Find(author => author.Id == id).FirstOrDefaultAsync();
+    }
+
+    public async Task CreateAuthor(Author author)
+    {
+        await _authors.InsertOneAsync(author);
+    }
+
+    public async Task UpdateAuthor(string id, Author author)
+    {
+        await _authors.ReplaceOneAsync(a => a.Id == id, author);
+    }
+
+    public async Task DeleteAuthor(string id)
+    {
+        await _authors.DeleteOneAsync(author => author.Id == id);
+    }
+}
