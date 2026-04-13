@@ -1,0 +1,11 @@
+-> Entites creation Order:
+-> Author -> Book -> Loan
+-> Endpoints
+-> Business logic
+-> DDD
+-> MongoConfig
+-> Program.cs config
+-> Default values for attributes (LoanPrice, BooksWritten, etc.)
+-> FluentValidation
+-> Mapping
+-> Bruno Tests
