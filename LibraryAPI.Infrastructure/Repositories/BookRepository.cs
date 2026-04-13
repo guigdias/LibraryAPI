@@ -1,4 +1,4 @@
-using LibraryApi.Domain.Entities;
+using LibraryAPI.Domain.Entities;
 using LibraryAPI.Domain.Interfaces;
 using MongoDB.Driver;
 
@@ -9,6 +9,10 @@ public class BookRepository : IBookRepository
 {
     private readonly IMongoCollection<Book>? _books;
 
+    public BookRepository(IMongoCollection<Book> books)
+    {
+        _books = books;
+    }
     public async Task CreateBook(Book book)
     {
         await _books.InsertOneAsync(book);

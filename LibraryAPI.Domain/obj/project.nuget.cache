@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "JDcX8/K02L4=",
+  "dgSpecHash": "OvT8tJjnWN0=",
   "success": true,
-  "projectFilePath": "C:\\dev\\LibraryAPI\\LibraryAPI.Domain\\LibraryAPI.Domain.csproj",
+  "projectFilePath": "/workspaces/LibraryAPI/LibraryAPI.Domain/LibraryAPI.Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

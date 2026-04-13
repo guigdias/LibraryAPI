@@ -1,3 +1,9 @@
+using MongoDB.Driver;
+using LibraryAPI.Domain.Interfaces;
+using LibraryAPI.Domain.Services;
+using LibraryAPI.Infrastructure.Configurations;
+using LibraryAPI.Infrastructure.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
