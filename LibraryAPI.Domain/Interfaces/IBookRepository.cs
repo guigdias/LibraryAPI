@@ -1,5 +1,5 @@
 using LibraryApi.Domain.Entities;
-namespace LibraryApi.Domain.Interfaces;
+namespace LibraryAPI.Domain.Interfaces;
 public interface IBookRepository
 {
     Task CreateBook(Book book);

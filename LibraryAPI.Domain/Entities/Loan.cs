@@ -1,4 +1,4 @@
-namespace LibraryApi.Domain.Entities;
+namespace LibraryAPI.Domain.Entities;
 
 public class Loan
 {
