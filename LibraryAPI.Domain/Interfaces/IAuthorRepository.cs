@@ -6,6 +6,6 @@ namespace LibraryAPI.Domain.Interfaces;
         Task CreateAuthor(Author author);
         Task <List<Author>> GetAllAuthors();
         Task <Author?> GetAuthorById(string id);
-        Task <bool> UpdateAuthor(string id, Author author);
+        Task <bool> UpdateAuthor(Author auhtor);
         Task <bool> DeleteAuthor(string id);
     }

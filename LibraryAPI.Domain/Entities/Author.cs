@@ -1,5 +1,4 @@
-﻿
-namespace LibraryAPI.Domain.Entities;
+﻿namespace LibraryAPI.Domain.Entities;
 
 public class Author
 {
@@ -14,9 +13,13 @@ public class Author
         Biography = biography;
         BooksWritten = 0;
     }
-
     public static Author CreateAuthor(string name, string biography)
     {
         return new Author(name, biography);
+    }
+    public void UpdateAuthor(string name, string biography)
+    {
+        Name = name;
+        Biography = biography;
     }
 }

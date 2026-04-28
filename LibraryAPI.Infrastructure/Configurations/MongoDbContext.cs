@@ -1,19 +1,16 @@
 using MongoDB.Driver;
-using Microsoft.Extensions.Configuration;
 
 namespace LibraryAPI.Infrastructure.Configurations;
 
 public class MongoDbContext
 {
     private readonly IMongoDatabase _database;
-    public MongoDbContext(IConfiguration configuration, IMongoClient client)
+    
+    public MongoDbContext(string connectionString, string  databaseName)
     {
-        var databaseName = configuration["Mongo:Database"];
-
+        var client = new MongoClient(connectionString);
         _database = client.GetDatabase(databaseName);
     }
-    public IMongoCollection<T> GetCollection<T>(string name)
-    {
-        return _database.GetCollection<T>(name);
-    }
+
+    public IMongoDatabase Database => _database;
 }

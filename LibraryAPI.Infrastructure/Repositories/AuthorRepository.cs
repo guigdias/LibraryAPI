@@ -1,5 +1,6 @@
 ﻿using LibraryAPI.Domain.Entities;
 using LibraryAPI.Domain.Interfaces;
+using LibraryAPI.Infrastructure.Configurations;
 using MongoDB.Driver;
 
 namespace LibraryAPI.Infrastructure.Repositories;
@@ -7,10 +8,9 @@ namespace LibraryAPI.Infrastructure.Repositories;
 public class AuthorRepository : IAuthorRepository
 {
     private readonly IMongoCollection<Author> _collection;
-
-    public AuthorRepository(IMongoCollection<Author> collection)
+    public AuthorRepository(MongoDbContext context)
     {
-        _collection = collection;
+        _collection = context.Database.GetCollection<Author>("Auhtors");
     }
 
     public async Task CreateAuthor(Author author)
@@ -28,10 +28,9 @@ public class AuthorRepository : IAuthorRepository
         return await _collection.Find(author => author.AuthorID == id).FirstOrDefaultAsync();
     }
 
-    public async Task<bool> UpdateAuthor(string id, Author author)
+    public async Task<bool> UpdateAuthor(Author author)
     {
-        var result = await _collection.ReplaceOneAsync(a => a.AuthorID == id, author);
-
+        var result = await _collection.ReplaceOneAsync(a => a.AuthorID == author.AuthorID, author);
         return result.ModifiedCount > 0;
     }
 

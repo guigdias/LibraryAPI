@@ -1,5 +1,6 @@
 using LibraryAPI.Domain.Entities;
 using LibraryAPI.Domain.Interfaces;
+using LibraryAPI.Infrastructure.Configurations;
 using MongoDB.Driver;
 
 
@@ -7,43 +8,35 @@ namespace LibraryAPI.Infrastructure.Repositories;
 
 public class BookRepository : IBookRepository
 {
-    private readonly IMongoCollection<Book>? _books;
+    private readonly IMongoCollection<Book> _collection;
 
-    public BookRepository(IMongoCollection<Book> books)
+    public BookRepository(MongoDbContext context)
     {
-        _books = books;
+        _collection = context.Database.GetCollection<Book>("Books");
     }
     public async Task CreateBook(Book book)
     {
-        await _books.InsertOneAsync(book);
+        await _collection.InsertOneAsync(book);
     }
     public async Task<List<Book>> GetAllBooks()
     {
-        return await _books.Find(book => true).ToListAsync();
+        return await _collection.Find(book => true).ToListAsync();
     }
 
     public async Task<Book?> GetBookById(string id)
     {
-        return await _books.Find(book => book.BookID == id).FirstOrDefaultAsync();
+        return await _collection.Find(book => book.BookID == id).FirstOrDefaultAsync();
     }
     
-    public async Task UpdateBook(string id, Book book)
+    public async Task<bool> UpdateBook(Book book)
     {
-        await _books.ReplaceOneAsync(b => b.BookID == id, book);
+        var result = await _collection.ReplaceOneAsync(b => b.BookID == book.BookID, book);
+        return result.ModifiedCount > 0;
     }
 
-    public async Task DeleteBook(string id)
+    public async Task<bool> DeleteBook(string id)
     {
-        await _books.DeleteOneAsync(book => book.BookID == id);
-    }
-
-    Task<bool> IBookRepository.UpdateBook(string id, Book book)
-    {
-        throw new NotImplementedException();
-    }
-
-    Task<bool> IBookRepository.DeleteBook(string id)
-    {
-        throw new NotImplementedException();
+       var result = await _collection.DeleteOneAsync(book => book.BookID == id);
+       return result.DeletedCount > 0;
     }
 }
